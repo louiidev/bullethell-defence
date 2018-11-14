@@ -1,0 +1,8 @@
+{
+  "enemies":  {
+    "postman": {
+      "attack": "1",
+      "health": "4"
+    } 
+  }
+}
