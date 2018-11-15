@@ -17,7 +17,9 @@ public class BulletHell : MonoBehaviour
     public GameObject line;
     public GameObject triangle;
     public GameObject bullet;
+    public GameObject explosion;
     // private GameObject triangle;
+    Animator animator;
     
     BoxCollider2D boxCollider2D;
 
@@ -25,10 +27,10 @@ public class BulletHell : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         state = GameObject.FindGameObjectWithTag("Manager").GetComponent<State>();
         InitPlayer();
         StartCoroutine(InitBullet());
-        StartCoroutine(StartTimer());
     }
 
     void InitPlayer() {
@@ -41,14 +43,8 @@ public class BulletHell : MonoBehaviour
         return linesPosX[random];
     }
 
-    IEnumerator StartTimer() {
-        float random = Random.Range(2.3f, 8.7f);
-        yield return new WaitForSeconds(random);
-        EndBattle();
-    }
-
     IEnumerator InitBullet() {
-        float random = Random.Range(0.3f, 0.7f);
+        float random = Random.Range(0.8f, 1.6f);
         yield return new WaitForSeconds(random);
         Instantiate(bullet, new Vector3(GetRandomLane(), 4), Quaternion.identity, this.transform);
         StartCoroutine(InitBullet());
@@ -61,19 +57,13 @@ public class BulletHell : MonoBehaviour
         Move();
     }
 
-    public void EndBattle() {
-      //  Destroy(gameObject);
-    }
-
     void CheckHit() {
-        RaycastHit2D hit = Physics2D.Raycast(triangle.transform.position, Vector3.right, 0.15f);
+        RaycastHit2D hit = Physics2D.Raycast(triangle.transform.position, Vector3.up, 0.15f);
         if (canBeHit && hit) {
-            if (state.playerData.health > 0) {
-                StartCoroutine(PlayerHit());
-            } else {
-                Destroy(triangle);
-                // stop battle
-                EndBattle();
+            if (hit.transform.gameObject.tag == "Asteriod") {
+                Vector2 pos = hit.transform.position;
+                Destroy(hit.transform.gameObject);
+                Instantiate(explosion, pos, Quaternion.identity);
             }
         }
     }

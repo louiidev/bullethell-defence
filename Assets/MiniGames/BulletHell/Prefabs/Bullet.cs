@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-	float speed = 4f;
+	float speed = 1.8f;
 
 	void Update() {
 		transform.position+= Vector3.down * speed * Time.deltaTime;

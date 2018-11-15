@@ -13,9 +13,6 @@ public class UIManager : MonoBehaviour {
     Text playerHealthText;
     int playerHealth;
 
-    Text enemyHealthText;
-    int enemyHealth;
-
     public Button AttackBtn;
 
 	// Use this for initialization
@@ -27,13 +24,10 @@ public class UIManager : MonoBehaviour {
 
     void Init () {
         canvas = GameObject.Find("Canvas");
-        if (state.inBattle)
-        {
-            playerHealthText = canvas.transform.Find("PlayerHealth").transform.Find("Amount").GetComponent<Text>();
-            enemyHealthText = canvas.transform.Find("EnemyHealth").transform.Find("Amount").GetComponent<Text>();
-            AttackBtn = canvas.transform.Find("AttackBtn").GetComponent<Button>();
-            AttackBtn.onClick.AddListener(state.battleManager.Attack);
-        }
+        playerHealthText = canvas.transform.Find("PlayerHealth").transform.Find("Amount").GetComponent<Text>();
+        AttackBtn = canvas.transform.Find("AttackBtn").GetComponent<Button>();
+        AttackBtn.onClick.AddListener(state.battleManager.Attack);
+    
     }
 
 
@@ -50,12 +44,6 @@ public class UIManager : MonoBehaviour {
         if (playerHealthText && state.playerData.health != playerHealth) {
             playerHealth = state.playerData.health;
             playerHealthText.text = playerHealth.ToString();
-        }
-
-        if (enemyHealthText && state.currentEnemy.health != enemyHealth)
-        {
-            enemyHealth = state.currentEnemy.health;
-            enemyHealthText.text = enemyHealth.ToString();
         }
     }
 
