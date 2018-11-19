@@ -7,6 +7,9 @@ TagManager:
   - Item
   - Enemy
   - Manager
+  - BulletPickup
+  - HealthPickup
+  - Asteroid
   - Asteriod
   layers:
   - Default
