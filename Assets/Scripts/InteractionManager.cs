@@ -14,12 +14,26 @@ public class InteractionManager : MonoBehaviour
         prefabManager = FindObjectOfType<PrefabManager>();
     }
 
+    public void OnBulletHit(GameObject interactGO) {
+        string type = interactGO.tag;
+        switch(type) {
+            case "Asteroid":
+                AsteroidInteract(interactGO);
+                break;
+            default: 
+                Destroy(interactGO);
+                break;
+        }
+    }
+
     public void OnInteract(GameObject interactGO)
     {
         string type = interactGO.tag;
         switch (type)
         {
         case "Asteroid":
+            state.DamagePlayer();
+            // play player dmg animation
             AsteroidInteract(interactGO);
             break;
         case "HealthPickup":
@@ -36,18 +50,19 @@ public class InteractionManager : MonoBehaviour
 
     void AsteroidInteract(GameObject asteroidGO)
     {
-        asteroidGO.GetComponent<Enemy>().TriggerDeath();
+        asteroidGO.GetComponent<Enemy>().Damage();
     }
 
     void HealthPickupInteract(GameObject pickupGO)
     {
         Destroy(pickupGO);
     }
+
     void BulletPickupInteract(GameObject pickupGO)
     {
         state.UpGameSpeed();
         // replace with actual amount
-        state.SetBulletAmount(50);
+        state.weaponManager.AddBullets(50);
         Destroy(pickupGO);
     }
 }

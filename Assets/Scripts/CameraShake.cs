@@ -30,19 +30,27 @@ public class CameraShake : MonoBehaviour
 	}
 
 	public void ExtraSmallShake() {
+		if (shakeDuration == 0) {
         shakeDuration = 0.15f;
+		}
         shakeAmount = 0.02f;
     }
 
     public void SmallShake() {
+			if (shakeDuration == 0) {
+				shakeAmount = 0.05f;
+			}
         shakeDuration = 0.25f;
-        shakeAmount = 0.05f;
     }
 
     public void BigShake() {
         shakeDuration = 0.4f;
         shakeAmount = 0.08f;
     }
+
+	public IEnumerator BumpCameraUpDown() {
+		yield return new WaitForSeconds(0.4f);
+	}
 
 	void Update()
 	{

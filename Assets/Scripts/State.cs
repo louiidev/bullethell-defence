@@ -4,46 +4,78 @@ using UnityEngine;
 
 [System.Serializable]
 public class State : MonoBehaviour {
+    public Dictionary<string, int> amounts = new Dictionary<string, int>();
 
-    public int score = 0;
-    public int health = 4;
-    public int bulletAmount = 0;
     public float gameSpeed = 0;
 
-    public GameObject player;
-    public PlayerData playerData;
-    public BattleManager battleManager;
+    public float gameTime;
+    bool gamePaused = false;
+    bool canBeDamaged = true;
+
+    public WeaponManager weaponManager;
     public UIManager uIManager;
     public BulletHell bulletHell;
 
-    public bool inBattle = false;
-    public bool inBulletHell = false;
-
-    public void SetBulletAmount(int bulletAmount) {
-        this.bulletAmount = bulletAmount;
+    void SetupAmounts() {
+        amounts.Add("health", 4);
+        amounts.Add("worldHealth", 6);
+        amounts.Add("score", 0);
     }
 
     void Awake()
     {
-        playerData = new PlayerData();
-        player = GameObject.FindWithTag("Player");
         InitManagers();
+    }
+
+    void InitManagers() {
+        uIManager = FindObjectOfType<UIManager>();
+        bulletHell = GetComponent<BulletHell>();
+        weaponManager = new WeaponManager();
+    }
+
+    void Start() {
+        SetupAmounts();
     }
 
     public void UpGameSpeed() {
         gameSpeed+= 0.1f;
     }
 
+    void Update() {
+        if (!gamePaused) {
+            gameTime = Time.deltaTime;
+        } else {
+            gameTime = 0;
+        }
+    }
+
+    public void TogglePause(bool pause) {
+        gamePaused = pause;
+    }
+
     public void UpGameScore() {
-        score+= 1;
-        if (score % 10 == 0) {
+        amounts["score"]++;
+        if (amounts["score"] % 10 == 0) {
             UpGameSpeed();
         }
     }
 
-    void InitManagers() {
-        battleManager = FindObjectOfType<BattleManager>();
-        uIManager = FindObjectOfType<UIManager>();
-        bulletHell = GetComponent<BulletHell>();
+    IEnumerator DamageSetTimeOut() {
+        canBeDamaged = false;
+        amounts["health"]--;
+        if (amounts["health"] > 0) {
+            bulletHell.playerAnim.Play("Hit");
+            yield return new WaitForSeconds(2f);
+            bulletHell.playerAnim.Play("Idle");
+            canBeDamaged = true;
+        } else {
+            // trigger death
+        }
+    }
+
+    public void DamagePlayer() {
+        if (canBeDamaged) {
+            StartCoroutine(DamageSetTimeOut());
+        }
     }
 }

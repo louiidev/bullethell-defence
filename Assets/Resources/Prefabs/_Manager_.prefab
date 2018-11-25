@@ -1,21 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1361721412131242}
-  m_IsPrefabAsset: 1
 --- !u!1 &1361721412131242
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4514263223433550}
@@ -24,6 +14,9 @@ GameObject:
   - component: {fileID: 114251289726311104}
   - component: {fileID: 114460257118818234}
   - component: {fileID: 114435823521258134}
+  - component: {fileID: 571263885}
+  - component: {fileID: 571263886}
+  - component: {fileID: 571263893}
   m_Layer: 0
   m_Name: _Manager_
   m_TagString: Manager
@@ -33,9 +26,10 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4514263223433550
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361721412131242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.4328632, y: 4.6157002, z: -9.920216}
@@ -44,71 +38,113 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114208705622512326
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1361721412131242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2413f18e1dc5f457c87f12c74cda648c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  playerData:
-    health: 4
-    attack: 1
-    alive: 1
-    currentTilePos: {x: 0, y: 0, z: 0}
-  battleManager: {fileID: 0}
-  enemyManager: {fileID: 0}
-  uIManager: {fileID: 0}
-  inBattle: 0
-  inBulletHell: 0
---- !u!114 &114251289726311104
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1361721412131242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d71bb47008e4d4aacd8f95b34976e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletHell: {fileID: 1228085205820976, guid: c3812bb5f31db45d19ff14cac93859a4, type: 2}
 --- !u!114 &114354206106969304
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361721412131242}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 099e610e75a984f3a96b9abaa58bb391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114435823521258134
+--- !u!114 &114208705622512326
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361721412131242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 599927db0ad704a2ba7a86183b1d3db9, type: 3}
+  m_Script: {fileID: 11500000, guid: 2413f18e1dc5f457c87f12c74cda648c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
+  health: 4
+  gameSpeed: 0
+  gameTime: 0
+  player: {fileID: 0}
+  battleManager: {fileID: 0}
+  uIManager: {fileID: 0}
+  bulletHell: {fileID: 0}
+  inBattle: 0
+  inBulletHell: 0
+--- !u!114 &114251289726311104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361721412131242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d71bb47008e4d4aacd8f95b34976e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletHell: {fileID: 0}
 --- !u!114 &114460257118818234
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361721412131242}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ffd7ae23a35e4e659a583656bf6a157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackBtn: {fileID: 0}
+--- !u!114 &114435823521258134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361721412131242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599927db0ad704a2ba7a86183b1d3db9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &571263885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361721412131242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f3b4ed590014cd78a89fc6c9091d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &571263886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361721412131242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054c11f7f806f47ffbddb2af50fb4799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &571263893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361721412131242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b91094262f574b4f9234c07ffb6b976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 1024

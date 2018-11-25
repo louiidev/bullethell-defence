@@ -22,7 +22,7 @@ public class ScoreCounter : MonoBehaviour {
 		if (hit) {
 			cameraShake.BigShake();
 			Destroy(hit.transform.gameObject);
-			state.health--;
+			state.amounts["worldHealth"]--;
 		}
 	}
 }

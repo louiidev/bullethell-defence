@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour {
 
@@ -11,12 +12,9 @@ public class UIManager : MonoBehaviour {
     BattleManager battleManager;
 
     Text healthText;
+    Text worldHealthText;
     Text scoreText;
 
-    int health = 0;
-    int score = 0;
-
-    public Button AttackBtn;
 
 	// Use this for initialization
 	void Start () {
@@ -27,35 +25,45 @@ public class UIManager : MonoBehaviour {
 
     void Init () {
         canvas = GameObject.Find("Canvas");
-        healthText = canvas.transform.Find("Health").transform.Find("Amount").GetComponent<Text>();
-        scoreText = canvas.transform.Find("Score").transform.Find("Amount").GetComponent<Text>();
-        AttackBtn = canvas.transform.Find("AttackBtn").GetComponent<Button>();
-        AttackBtn.onClick.AddListener(state.battleManager.Attack);
+        healthText = GetUiTextElement("Health");
+        scoreText = GetUiTextElement("Score");
+        worldHealthText = GetUiTextElement("WorldHealth");
     }
 
+    Text GetUiTextElement(string elementName) {
+        return canvas.transform.Find(elementName).transform.Find("Amount").GetComponent<Text>();
+    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Init();
     }
 
-    void AttackOnClick() {
+    void TouchControls() {
+        Touch[] touches = Input.touches;
+        for(int i = 0; i < touches.Length; i++)
+        {
+            int id = touches[i].fingerId;
+            if (EventSystem.current.IsPointerOverGameObject(id))
+            {
+                GameObject go = EventSystem.current.currentSelectedGameObject;
+                Debug.Log(go.name);
+            }
+        }
     }
 
-
     void UpdateUI() {
-        if (state.health != health) {
-            health = state.health;
-            healthText.text = health.ToString();
-        }
-        if (state.score != score) {
-            score = state.score;
-            scoreText.text = score.ToString();
-        }
+        healthText.text = state.amounts["health"].ToString();
+        scoreText.text = state.amounts["score"].ToString();
+        worldHealthText.text = state.amounts["worldHealth"].ToString();
+    }
+
+    void Update() {
+        TouchControls();
     }
 
     // Update is called once per frame
-    void Update () {
+    void LateUpdate () {
         UpdateUI();
     }
 }

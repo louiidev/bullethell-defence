@@ -5,12 +5,14 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
     float speed = 1f;
+    State state;
     void Start() {
+        state = FindObjectOfType<State>();
         StartCoroutine(KillGO());
     }
 
     void Update() {
-        transform.position+= Vector3.down * speed * Time.deltaTime;
+        transform.position+= Vector3.down * speed * state.gameTime;
     }
 
     IEnumerator KillGO() {
